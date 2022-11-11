@@ -18,7 +18,7 @@ public class InstitutionService : IInstitutionService
         return await _unitOfWork.Institutions.GetAllAsync();
     }
 
-    public async Task<Institution> GetInstitutionByIdAsync(int id)
+    public async Task<Institution> GetInstitutionByIdAsync(Guid id)
     {
         return await _unitOfWork.Institutions.GetByIdAsync(id);
     }

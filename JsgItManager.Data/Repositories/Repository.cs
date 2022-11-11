@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JsgItManager.Data.Repositories;
 
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+public class Repository<TEntity, TIdType> : IRepository<TEntity, TIdType>
+    where TEntity : class
+    where TIdType : IEquatable<TIdType>
 
 {
     protected readonly DbContext Context;
@@ -14,7 +16,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         Context = context;
     }
 
-    public ValueTask<TEntity> GetByIdAsync(int id)
+    public ValueTask<TEntity> GetByIdAsync(TIdType id)
     {
         return Context.Set<TEntity>().FindAsync(id);
     }

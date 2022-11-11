@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JsgItManager.Data.Repositories;
 
-public class InstitutionRepository: Repository<Institution>, IInstitutionRepository
+public class InstitutionRepository: Repository<Institution, Guid>, IInstitutionRepository
 {
     public InstitutionRepository(DbContext context) : base(context)
     {

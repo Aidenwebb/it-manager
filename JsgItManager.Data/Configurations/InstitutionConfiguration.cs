@@ -12,8 +12,9 @@ public class InstitutionConfiguration :IEntityTypeConfiguration<Institution>
 
         builder
             .Property(i => i.Id)
-            .UseIdentityColumn();
-        
+            .HasColumnType("uuid")
+            .HasDefaultValueSql("gen_random_uuid()");
+
         builder.Property(i => i.Name)
             .IsRequired()
             .HasMaxLength(100);
