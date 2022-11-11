@@ -13,6 +13,11 @@ public class InstitutionService : IInstitutionService
         _unitOfWork = unitOfWork;
     }
     
+    public async Task<IEnumerable<Institution>> GetAllInstitutions()
+    {
+        return await _unitOfWork.Institutions.GetAllAsync();
+    }
+
     public async Task<Institution> GetInstitutionByIdAsync(int id)
     {
         return await _unitOfWork.Institutions.GetByIdAsync(id);
