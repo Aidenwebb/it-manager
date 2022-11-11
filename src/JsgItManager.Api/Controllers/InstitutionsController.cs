@@ -1,5 +1,6 @@
 using AutoMapper;
 using JsgItManager.Api.Resources;
+using JsgItManager.Api.Validators;
 using JsgItManager.Core.Models;
 using JsgItManager.Core.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,24 @@ public class InstitutionsController : Controller
     public async Task<ActionResult<InstitutionResource>> GetInstitutionById(Guid id)
     {
         var institution = await _institutionService.GetInstitutionByIdAsync(id);
+        var institutionResource = _mapper.Map<Institution, InstitutionResource>(institution);
+        return Ok(institutionResource);
+    }
+    
+    [HttpPost("")]
+    public async Task<ActionResult<InstitutionResource>> CreateInstitution([FromBody] SaveInstitutionResource saveInstitutionResource)
+    {
+        var validator = new SaveInstitutionResourceValidator();
+        var validationResult = await validator.ValidateAsync(saveInstitutionResource);
+
+        if (!validationResult.IsValid)
+        {
+            BadRequest(validationResult.Errors);
+        }
+            
+        var institutionToCreate = _mapper.Map<SaveInstitutionResource, Institution>(saveInstitutionResource);
+        var newInstitution = await _institutionService.CreateInstitutionAsync(institutionToCreate);
+        var institution = await _institutionService.GetInstitutionByIdAsync(newInstitution.Id);
         var institutionResource = _mapper.Map<Institution, InstitutionResource>(institution);
         return Ok(institutionResource);
     }

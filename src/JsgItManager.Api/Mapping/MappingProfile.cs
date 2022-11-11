@@ -16,6 +16,7 @@ public class MappingProfile : Profile
         
         // Resource to Domain
         CreateMap<InstitutionResource, Institution>();
+        CreateMap<SaveInstitutionResource, Institution>();
         
         CreateMap<UserRegisterResource, ApplicationUser>().ForMember(u => u.UserName, opt => opt.MapFrom(ur => ur.Email));
         
