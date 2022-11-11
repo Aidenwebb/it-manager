@@ -71,4 +71,12 @@ public class InstitutionsController : Controller
         var updatedInstitutionResource = _mapper.Map<Institution, InstitutionResource>(updatedInstitution);
         return Ok(updatedInstitutionResource);
     }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteInstitution(Guid id)
+    {
+        var institution = await _institutionService.GetInstitutionByIdAsync(id);
+        await _institutionService.DeleteInstitutionAsync(institution);
+        return NoContent();
+    }
 }
