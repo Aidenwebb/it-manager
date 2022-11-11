@@ -52,4 +52,23 @@ public class InstitutionsController : Controller
         var institutionResource = _mapper.Map<Institution, InstitutionResource>(institution);
         return Ok(institutionResource);
     }
+    
+    [HttpPut("{id}")]
+    public async Task<ActionResult<InstitutionResource>> UpdateInstitution(Guid id, [FromBody] SaveInstitutionResource saveInstitutionResource)
+    {
+        var validator = new SaveInstitutionResourceValidator();
+        var validationResult = await validator.ValidateAsync(saveInstitutionResource);
+
+        if (!validationResult.IsValid)
+        {
+            BadRequest(validationResult.Errors);
+        }
+            
+        var institutionToBeUpdated = await _institutionService.GetInstitutionByIdAsync(id);
+        var institution = _mapper.Map<SaveInstitutionResource, Institution>(saveInstitutionResource);
+        await _institutionService.UpdateInstitutionAsync(institutionToBeUpdated, institution);
+        var updatedInstitution = await _institutionService.GetInstitutionByIdAsync(id);
+        var updatedInstitutionResource = _mapper.Map<Institution, InstitutionResource>(updatedInstitution);
+        return Ok(updatedInstitutionResource);
+    }
 }
