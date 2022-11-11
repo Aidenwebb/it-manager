@@ -25,4 +25,12 @@ public class InstitutionsController : Controller
         var institutionResources = _mapper.Map<IEnumerable<Institution>, IEnumerable<InstitutionResource>>(institutions);
         return Ok(institutionResources);
     }
+    
+    [HttpGet("{id}")]
+    public async Task<ActionResult<InstitutionResource>> GetInstitutionById(Guid id)
+    {
+        var institution = await _institutionService.GetInstitutionByIdAsync(id);
+        var institutionResource = _mapper.Map<Institution, InstitutionResource>(institution);
+        return Ok(institutionResource);
+    }
 }
