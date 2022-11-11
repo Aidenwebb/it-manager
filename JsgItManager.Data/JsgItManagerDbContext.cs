@@ -18,7 +18,7 @@ public class JsgItManagerDbContext : IdentityDbContext<ApplicationUser, Applicat
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder
-            .UseNpgsql()
+            .UseNpgsql(x => x.MigrationsHistoryTable("__ef_migrations_history"))
             .UseSnakeCaseNamingConvention();
 
     protected override void OnModelCreating(ModelBuilder builder)
