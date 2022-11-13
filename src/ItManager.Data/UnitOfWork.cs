@@ -7,7 +7,7 @@ namespace ItManager.Data;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly JsgItManagerDbContext _context;
-    private InstitutionRepository _institutionRepository;
+    private InstitutionRepository? _institutionRepository;
     
     public UnitOfWork(JsgItManagerDbContext context)
     {

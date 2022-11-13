@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using ItManager.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace ItManager.Data.Repositories;
 
@@ -16,34 +17,34 @@ public class Repository<TEntity, TIdType> : IRepository<TEntity, TIdType>
         Context = context;
     }
 
-    public ValueTask<TEntity> GetByIdAsync(TIdType id)
+    public ValueTask<TEntity?> GetByIdAsync(TIdType id)
     {
         return Context.Set<TEntity>().FindAsync(id);
     }
 
-    public async Task<IEnumerable<TEntity>> GetAllAsync()
+    public Task<List<TEntity>> GetAllAsync()
     {
-        return await Context.Set<TEntity>().ToListAsync();
+        return Context.Set<TEntity>().ToListAsync();
     }
 
-    public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+    public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
     {
         return Context.Set<TEntity>().Where(predicate);
     }
 
-    public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+    public Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return Context.Set<TEntity>().SingleOrDefault(predicate);
+        return Context.Set<TEntity>().SingleOrDefaultAsync(predicate);
     }
 
-    public async Task AddAsync(TEntity entity)
+    public ValueTask<EntityEntry<TEntity>> AddAsync(TEntity entity)
     {
-        await Context.Set<TEntity>().AddAsync(entity);
+        return Context.Set<TEntity>().AddAsync(entity);
     }
 
-    public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+    public Task AddRangeAsync(IEnumerable<TEntity> entities)
     {
-        await Context.Set<TEntity>().AddRangeAsync(entities);
+        return Context.Set<TEntity>().AddRangeAsync(entities);
     }
 
     public void Remove(TEntity entity)

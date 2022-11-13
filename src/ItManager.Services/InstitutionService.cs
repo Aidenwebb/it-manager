@@ -13,17 +13,17 @@ public class InstitutionService : IInstitutionService
         _unitOfWork = unitOfWork;
     }
     
-    public async Task<IEnumerable<Institution>> GetAllInstitutions()
+    public Task<List<Institution>> GetAllInstitutions()
     {
-        return await _unitOfWork.Institutions.GetAllAsync();
+        return _unitOfWork.Institutions.GetAllAsync();
     }
 
-    public async Task<Institution> GetInstitutionByIdAsync(Guid id)
+    public async Task<Institution?> GetInstitutionByIdAsync(Guid id)
     {
         return await _unitOfWork.Institutions.GetByIdAsync(id);
     }
 
-    public async Task<Institution> GetInstitutionByNameAsync(string name)
+    public async Task<Institution?> GetInstitutionByNameAsync(string name)
     {
         return await  _unitOfWork.Institutions.GetInstitutionByNameAsync(name);
     }

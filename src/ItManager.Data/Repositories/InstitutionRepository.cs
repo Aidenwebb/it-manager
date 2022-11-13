@@ -10,9 +10,11 @@ public class InstitutionRepository: Repository<Institution, Guid>, IInstitutionR
     {
     }
     
-    public JsgItManagerDbContext JsgItManagerDbContext => Context as JsgItManagerDbContext;
-    public async Task<Institution> GetInstitutionByNameAsync(string name)
+    public JsgItManagerDbContext? JsgItManagerDbContext => Context as JsgItManagerDbContext;
+    
+    /// <inheritdoc/>
+    public Task<Institution?> GetInstitutionByNameAsync(string name)
     {
-        return base.Find(i => i.Name == name).FirstOrDefault();
+        return Find(i => i.Name == name).FirstOrDefaultAsync();
     }
 }

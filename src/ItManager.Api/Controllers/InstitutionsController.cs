@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ItManager.Api.Controllers;
 
-public class InstitutionsController : Controller
+public class InstitutionsController : ControllerBase
 {
 
     private readonly IInstitutionService _institutionService;
@@ -31,6 +31,12 @@ public class InstitutionsController : Controller
     public async Task<ActionResult<InstitutionResource>> GetInstitutionById(Guid id)
     {
         var institution = await _institutionService.GetInstitutionByIdAsync(id);
+
+        if (institution is null)
+        {
+            return NotFound();
+        }
+
         var institutionResource = _mapper.Map<Institution, InstitutionResource>(institution);
         return Ok(institutionResource);
     }
@@ -65,6 +71,12 @@ public class InstitutionsController : Controller
         }
             
         var institutionToBeUpdated = await _institutionService.GetInstitutionByIdAsync(id);
+
+        if (institutionToBeUpdated is null)
+        {
+            return NotFound();
+        }
+
         var institution = _mapper.Map<SaveInstitutionResource, Institution>(saveInstitutionResource);
         await _institutionService.UpdateInstitutionAsync(institutionToBeUpdated, institution);
         var updatedInstitution = await _institutionService.GetInstitutionByIdAsync(id);
@@ -76,6 +88,12 @@ public class InstitutionsController : Controller
     public async Task<IActionResult> DeleteInstitution(Guid id)
     {
         var institution = await _institutionService.GetInstitutionByIdAsync(id);
+
+        if (institution is null)
+        {
+            return NotFound();
+        }
+
         await _institutionService.DeleteInstitutionAsync(institution);
         return NoContent();
     }
