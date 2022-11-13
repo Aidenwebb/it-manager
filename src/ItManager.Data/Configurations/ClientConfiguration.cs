@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ItManager.Data.Configurations;
 
-public class InstitutionConfiguration :IEntityTypeConfiguration<Institution>
+public class ClientConfiguration : IEntityTypeConfiguration<Client>
 {
-    public void Configure(EntityTypeBuilder<Institution> builder)
+    public void Configure(EntityTypeBuilder<Client> builder)
     {
         builder.HasKey(i => i.Id);
 

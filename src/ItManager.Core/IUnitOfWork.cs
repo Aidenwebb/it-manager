@@ -4,6 +4,6 @@ namespace ItManager.Core;
 
 public interface IUnitOfWork : IDisposable
 {
-    IInstitutionRepository Institutions { get; }
+    IClientRepository Institutions { get; }
     Task<int> CommitAsync();
 }

@@ -7,7 +7,7 @@ namespace ItManager.Data;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly JsgItManagerDbContext _context;
-    private InstitutionRepository? _institutionRepository;
+    private ClientRepository? _institutionRepository;
     
     public UnitOfWork(JsgItManagerDbContext context)
     {
@@ -19,7 +19,7 @@ public class UnitOfWork : IUnitOfWork
         _context.Dispose();
     }
 
-    public IInstitutionRepository Institutions => _institutionRepository ??= new InstitutionRepository(_context);
+    public IClientRepository Institutions => _institutionRepository ??= new ClientRepository(_context);
     public async Task<int> CommitAsync()
     {
         return await _context.SaveChangesAsync();

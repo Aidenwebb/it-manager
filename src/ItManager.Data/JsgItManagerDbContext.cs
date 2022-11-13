@@ -10,7 +10,7 @@ namespace ItManager.Data;
 public class JsgItManagerDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
 
 {
-    public DbSet<Institution> Institutions { get; set; }
+    public DbSet<Client> Clients { get; set; }
     
     public JsgItManagerDbContext(DbContextOptions<JsgItManagerDbContext> options) : base(options)
     {
@@ -70,7 +70,7 @@ public class JsgItManagerDbContext : IdentityDbContext<ApplicationUser, Applicat
         // Configure custom models
         
         builder
-            .ApplyConfiguration(new InstitutionConfiguration());
+            .ApplyConfiguration(new ClientConfiguration());
 
     }
     

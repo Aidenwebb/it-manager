@@ -11,12 +11,12 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         // Domain to Resource
-        CreateMap<Institution, InstitutionResource>();
+        CreateMap<Client, InstitutionResource>();
         
         
         // Resource to Domain
-        CreateMap<InstitutionResource, Institution>();
-        CreateMap<SaveInstitutionResource, Institution>();
+        CreateMap<InstitutionResource, Client>();
+        CreateMap<SaveInstitutionResource, Client>();
         
         CreateMap<UserRegisterResource, ApplicationUser>().ForMember(u => u.UserName, opt => opt.MapFrom(ur => ur.Email));
         

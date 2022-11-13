@@ -30,7 +30,7 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddTransient<IInstitutionService, InstitutionService>();
+builder.Services.AddTransient<IClientService, ClientService>();
 
 
 

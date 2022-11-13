@@ -4,38 +4,38 @@ using ItManager.Core.Services;
 
 namespace ItManager.Services;
 
-public class InstitutionService : IInstitutionService
+public class ClientService : IClientService
 {
     private readonly IUnitOfWork _unitOfWork;
     
-    public InstitutionService(IUnitOfWork unitOfWork)
+    public ClientService(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
     
-    public Task<List<Institution>> GetAllInstitutions()
+    public Task<List<Client>> GetAllClients()
     {
         return _unitOfWork.Institutions.GetAllAsync();
     }
 
-    public async Task<Institution?> GetInstitutionByIdAsync(Guid id)
+    public async Task<Client?> GetClientByIdAsync(Guid id)
     {
         return await _unitOfWork.Institutions.GetByIdAsync(id);
     }
 
-    public async Task<Institution?> GetInstitutionByNameAsync(string name)
+    public async Task<Client?> GetClientByNameAsync(string name)
     {
         return await  _unitOfWork.Institutions.GetInstitutionByNameAsync(name);
     }
 
-    public async Task<Institution> CreateInstitutionAsync(Institution institution)
+    public async Task<Client> CreateClientAsync(Client institution)
     {
         await _unitOfWork.Institutions.AddAsync(institution);
         await _unitOfWork.CommitAsync();
         return institution;
     }
 
-    public async Task<Institution> UpdateInstitutionAsync(Institution institutionToBeUpdated, Institution institution)
+    public async Task<Client> UpdateClientAsync(Client institutionToBeUpdated, Client institution)
     {
         institutionToBeUpdated.Name = institution.Name;
 
@@ -44,7 +44,7 @@ public class InstitutionService : IInstitutionService
         return institutionToBeUpdated;
     }
 
-    public async Task DeleteInstitutionAsync(Institution institution)
+    public async Task DeleteClientAsync(Client institution)
     {
         _unitOfWork.Institutions.Remove(institution);
         await _unitOfWork.CommitAsync();

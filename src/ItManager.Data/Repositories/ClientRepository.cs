@@ -4,16 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ItManager.Data.Repositories;
 
-public class InstitutionRepository: Repository<Institution, Guid>, IInstitutionRepository
+public class ClientRepository : Repository<Client, Guid>, IClientRepository
 {
-    public InstitutionRepository(DbContext context) : base(context)
+    public ClientRepository(DbContext context) : base(context)
     {
     }
     
     public JsgItManagerDbContext? JsgItManagerDbContext => Context as JsgItManagerDbContext;
     
     /// <inheritdoc/>
-    public Task<Institution?> GetInstitutionByNameAsync(string name)
+    public Task<Client?> GetInstitutionByNameAsync(string name)
     {
         return Find(i => i.Name == name).FirstOrDefaultAsync();
     }
