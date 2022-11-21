@@ -11,6 +11,16 @@ public class JsgItManagerDbContext : IdentityDbContext<ApplicationUser, Applicat
 
 {
     public DbSet<Client> Clients { get; set; }
+
+    /// <summary>
+    /// All domains in the database.
+    /// </summary>
+    public DbSet<Domain> Domains { get; set; }
+
+    /// <summary>
+    /// All registrars in the database.
+    /// </summary>
+    public DbSet<Registrar> Registrars { get; set; }
     
     public JsgItManagerDbContext(DbContextOptions<JsgItManagerDbContext> options) : base(options)
     {
