@@ -6,11 +6,9 @@ namespace ItManager.Data.Repositories;
 
 public class ClientRepository : Repository<Client, Guid>, IClientRepository
 {
-    public ClientRepository(DbContext context) : base(context)
+    public ClientRepository(JsgItManagerDbContext context) : base(context)
     {
     }
-    
-    public JsgItManagerDbContext? JsgItManagerDbContext => Context as JsgItManagerDbContext;
     
     /// <inheritdoc/>
     public Task<Client?> GetInstitutionByNameAsync(string name)

@@ -10,9 +10,9 @@ public class Repository<TEntity, TIdType> : IRepository<TEntity, TIdType>
     where TIdType : IEquatable<TIdType>
 
 {
-    protected readonly DbContext Context;
+    protected readonly JsgItManagerDbContext Context;
     
-    public Repository(DbContext context)
+    public Repository(JsgItManagerDbContext context)
     {
         Context = context;
     }
